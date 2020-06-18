@@ -56,7 +56,7 @@ class UserController extends Controller
     }
 
     public function events(){
-        $events = Event::select("events.*")
+        $events = Events::select("events.*")
         ->join('Users_events' , 'events.id' , 'Users_events.event_id')
         ->where('Users_events.user_id' , Auth::user()->id)
         ->get();
@@ -65,7 +65,7 @@ class UserController extends Controller
     }
 
     public function respondEvent(Request $r){
-        $eventID = Event::where($r->event_id)->pluck('id');
+        $eventID = Events::where($r->event_id)->pluck('id');
 
         $userEvent = UserEvents::where('event_id' , $eventID)->where('user_id' , Auth::user()->id)->first();
 
